@@ -17,10 +17,10 @@ import javax.sql.DataSource;
 import java.util.Properties;
 
 @Configuration
-@ComponentScan("web")  // Укажите пакет, где находятся ваши компоненты
+@ComponentScan("web")
 @EnableTransactionManagement
 @PropertySource("classpath:application.properties")
-public class JpaConfig {
+public class JavaConfig {
 
     @Autowired
     private Environment env;
@@ -44,7 +44,7 @@ public class JpaConfig {
 
         // Настройка свойств Hibernate
         Properties jpaProperties = new Properties();
-        jpaProperties.put("hibernate.dialect", "org.hibernate.dialect.MySQLDialect"); // Используйте нужный диалект
+        jpaProperties.put("hibernate.dialect", "org.hibernate.dialect.MySQLDialect");
         jpaProperties.put("hibernate.show_sql", env.getProperty("hibernate.show_sql"));
         jpaProperties.put("hibernate.hbm2ddl.auto", env.getProperty("hibernate.hbm2ddl.auto"));
 
