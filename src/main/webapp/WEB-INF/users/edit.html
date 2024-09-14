@@ -5,7 +5,10 @@
     <title>Изменение пользователя</title>
 </head>
 <body>
-<form th:method="PATCH" th:action="@{/users/update(id=${user.getId()})}" th:object="${user}">
+<!--<form th:method="PATCH" th:action="@{/users/update(id=${user.getId()})}" th:object="${user}">-->
+<form th:method="POST" th:action="@{/users/update}" th:object="${user}">
+    <input type="hidden" th:field="*{id}" />
+
     <label for="name">Введите имя: </label>
     <input type="text" th:field="*{name}" id="name"></input>
     <br>
