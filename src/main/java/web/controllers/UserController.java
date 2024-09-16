@@ -9,24 +9,29 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import web.model.User;
-import web.service.UserServiceImp;
+import web.service.UserService;
 
 
 @Controller
 @RequestMapping("/users")
 public class UserController {
+
+    private final UserService userService;
+
     @Autowired
-    private UserServiceImp userServiceImp;
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
 
     @GetMapping()
     public String getAllUsers(Model model) {
-        model.addAttribute("users", userServiceImp.getAllUsers());
+        model.addAttribute("users", userService.getAllUsers());
         return "users/users";
     }
 
     @GetMapping("/user")
     public String getUser(@RequestParam("id") Long id, Model model) {
-        model.addAttribute("user", userServiceImp.getUser(id));
+        model.addAttribute("user", userService.getUser(id));
         return "users/user";
     }
 
@@ -38,13 +43,13 @@ public class UserController {
 
     @PostMapping()
     public String createUser(@ModelAttribute("user") User user) {
-        userServiceImp.saveUser(user);
+        userService.saveUser(user);
         return "redirect:/users";
     }
 
     @GetMapping("/edit")
-    public String edit(Model model, @RequestParam("id") Long id) {
-        model.addAttribute("user", userServiceImp.getUser(id));
+    public String edit(@RequestParam("id") Long id, Model model) {
+        model.addAttribute("user", userService.getUser(id));
         return "users/edit";
     }
 
@@ -56,7 +61,7 @@ public class UserController {
 
     @PostMapping("/update")
     public String update(@ModelAttribute("user") User user) {
-        userServiceImp.update(user.getId(), user);
+        userService.update(user.getId(), user);
         return "redirect:/users";
     }
 
@@ -68,7 +73,7 @@ public class UserController {
 
     @PostMapping("/delete")
     public String delete(@ModelAttribute("user") User user) {
-        userServiceImp.delete(user.getId());
+        userService.delete(user.getId());
         return "redirect:/users";
 
     }

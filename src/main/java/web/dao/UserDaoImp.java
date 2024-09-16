@@ -7,12 +7,11 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
-import javax.transaction.Transactional;
 import java.util.List;
 
 @Repository
-@Transactional
 public class UserDaoImp implements UserDao {
+
     @PersistenceContext
     private EntityManager entityManager;
 
